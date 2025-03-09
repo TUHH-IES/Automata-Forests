@@ -1,0 +1,13 @@
+.metadata/
+.vscode/
+.settings/
+.sonarlint/
+target/
+.classpath
+.project
+.idea/
+**/resources/
+AutomataForestDataSets.iml
+AutomataForestDataSets.ipr
+AutomataForestDataSets.iws
+
