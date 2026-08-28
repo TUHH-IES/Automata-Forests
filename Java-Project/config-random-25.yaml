@@ -1,0 +1,11 @@
+name: "Mealy random 10"
+example: "random"
+numStates: 25
+numInputs: 5
+numOutputs: 5
+sizeForest: 100
+bagRatio: 0.8
+sizeLearn: 10000
+sizeTest: 1000
+lengthWords: 30
+repetitions: 1000

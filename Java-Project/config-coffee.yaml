@@ -1,0 +1,11 @@
+name: "Mealy"
+example: "coffee"
+numStates: 5
+numInputs: 4
+numOutputs: 3
+sizeForest: 100
+bagRatio: 0.8
+sizeLearn: 1000
+sizeTest: 1000
+lengthWords: 10
+repetitions: 1000
