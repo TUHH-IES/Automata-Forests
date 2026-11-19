@@ -62,6 +62,12 @@ public class TestEnvironment {
 				double timeRPNI = timer.getDurationInSec();
 
 				timer.startTimer();
+				DFA<?, Character> singleDFAEDSM = HelperFunctions.computeModelDFABlueFringeEDSM(
+						sigmaIn, trainSet.getInputs(), trainSet.getAcceptanceLabels());
+				timer.CurrTimer();
+				double timeEDSM = timer.getDurationInSec();
+
+				timer.startTimer();
 				AutomataForestDFAMachine forest = new AutomataForestDFAMachine(
 						sigmaIn, trainSet.getInputs(), trainSet.getAcceptanceLabels(), bagRatio, numBags);
 				timer.CurrTimer();
@@ -74,8 +80,13 @@ public class TestEnvironment {
 								testSet, "instance", 0.0, 0.0));
 					}
 				}
-				writer.writeDataSingleExperiment(evaluateDFA(singleDFA, sigmaIn, trainSet,
-						testSet, "RPNI", timeRPNI, 0.0));
+				ExperimentResults singleResults = evaluateDFA(singleDFA, sigmaIn, trainSet,
+						testSet, "RPNI", timeRPNI, 0.0);
+				singleResults.setModelSizeEDSM(singleDFAEDSM.size());
+				singleResults.setTimeEDSM(timeEDSM);
+				singleResults.setCorrectWordsEDSM(HelperFunctions.CompareWithModelWithTestSet(
+						singleDFAEDSM, testSet.getInputs(), testSet.getAcceptanceLabels()));
+				writer.writeDataSingleExperiment(singleResults);
 				ExperimentResults forestResults = evaluateDFA(selectedDFA, sigmaIn, trainSet,
 						testSet, "PM", 0.0, timeForest);
 				forestResults.setCorrectWordsMV(HelperFunctions.CompareWithModelWithTestSet(

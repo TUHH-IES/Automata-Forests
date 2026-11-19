@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import de.learnlib.algorithms.rpni.BlueFringeEDSMDFA;
 import de.learnlib.algorithms.rpni.BlueFringeRPNIDFA;
 import de.learnlib.algorithms.rpni.BlueFringeRPNIMealy;
 import de.learnlib.api.algorithm.PassiveLearningAlgorithm.PassiveDFALearner;
@@ -141,6 +142,25 @@ public final class HelperFunctions {
 			throw new IllegalArgumentException("acceptance labels must not be null");
 		}
 		final PassiveDFALearner<I> learner = new BlueFringeRPNIDFA<>(alphabet);
+		for (int i = 0; i < inputSample.size(); i++) {
+			learner.addSample((Word<I>) Word.fromString(inputSample.get(i)), acceptanceSample.get(i));
+		}
+		return learner.computeModel();
+	}
+
+	/**
+	 * Learns a DFA using LearnLib's Blue-Fringe EDSM implementation.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <I> DFA<?, I> computeModelDFABlueFringeEDSM(Alphabet<I> alphabet,
+			List<String> inputSample, List<Boolean> acceptanceSample) {
+		if (inputSample.size() != acceptanceSample.size()) {
+			throw new IllegalArgumentException("input and acceptance samples must be the same size");
+		}
+		if (acceptanceSample.contains(null)) {
+			throw new IllegalArgumentException("acceptance labels must not be null");
+		}
+		final BlueFringeEDSMDFA<I> learner = new BlueFringeEDSMDFA<>(alphabet);
 		for (int i = 0; i < inputSample.size(); i++) {
 			learner.addSample((Word<I>) Word.fromString(inputSample.get(i)), acceptanceSample.get(i));
 		}

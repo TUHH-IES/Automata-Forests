@@ -41,9 +41,10 @@ public class CSVTestWriter {
 			// create CSVWriter object filewriter object as parameter
 			writer = new CSVWriter(outputfile);
 
-			// adding header to csv; size=24 columns
+			// Header includes DFA-only EDSM metrics, left blank for Mealy experiments.
 			String[] header = { "testSize", "bagRatio", "forestSize", "trainSize", "SigmaIn", "SigmaOut", "TargetSize",
-					"WordLength", "ModelSizeRPNI", "ModelSizePM", "TimeRPNI", "TimeForest", "RPNI", "FPM", "FMV"};
+					"WordLength", "ModelSizeRPNI", "ModelSizeEDSM", "ModelSizePM", "TimeRPNI", "TimeEDSM",
+					"TimeForest", "RPNI", "EDSM", "FPM", "FMV"};
 			writer.writeNext(header);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -62,10 +63,13 @@ public class CSVTestWriter {
 					Integer.toString(results.getTargetSize()),
 					Integer.toString(results.getWordLength()),
 					Integer.toString(results.getModelSizeRPNI()),
+					results.getModelSizeEDSM() == null ? "" : results.getModelSizeEDSM().toString(),
 					Integer.toString(results.getModelSizePM()),
 					Double.toString(results.getTimeRPNI()),
+					results.getTimeEDSM() == null ? "" : results.getTimeEDSM().toString(),
 					Double.toString(results.getTimeForest()),
 					Integer.toString(results.getCorrectWordsRPNI()),
+					results.getCorrectWordsEDSM() == null ? "" : results.getCorrectWordsEDSM().toString(),
 					Integer.toString(results.getCorrectWordsPM()),
 					Integer.toString(results.getCorrectWordsMV())
 			};

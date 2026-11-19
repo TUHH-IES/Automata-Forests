@@ -16,6 +16,9 @@ public class ExperimentResults {
 	private int correctWordsMV;
 	private int modelSizeRPNI;
 	private int modelSizePM;
+	private Integer modelSizeEDSM;
+	private Double timeEDSM;
+	private Integer correctWordsEDSM;
 	
 	public int getTestSize() {
 		return testSize;
@@ -106,6 +109,30 @@ public class ExperimentResults {
 	}
 	public void setModelSizePM(int modelSizePM) {
 		this.modelSizePM = modelSizePM;
+	}
+
+	public Integer getModelSizeEDSM() {
+		return modelSizeEDSM;
+	}
+
+	public void setModelSizeEDSM(Integer modelSizeEDSM) {
+		this.modelSizeEDSM = modelSizeEDSM;
+	}
+
+	public Double getTimeEDSM() {
+		return timeEDSM;
+	}
+
+	public void setTimeEDSM(Double timeEDSM) {
+		this.timeEDSM = timeEDSM;
+	}
+
+	public Integer getCorrectWordsEDSM() {
+		return correctWordsEDSM;
+	}
+
+	public void setCorrectWordsEDSM(Integer correctWordsEDSM) {
+		this.correctWordsEDSM = correctWordsEDSM;
 	}
 	
 	@Override
