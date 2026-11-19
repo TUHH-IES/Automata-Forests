@@ -1,0 +1,15 @@
+name: "DFA random 10"
+automatonType: DFA
+example: "random"
+numStates: 10
+numInputs: 4
+numOutputs: 4
+sizeForest: 
+  - 100
+bagRatio:
+  - 0.8
+sizeLearn:
+  - 10000
+sizeTest: 1000
+lengthWords: 20
+repetitions: 1000

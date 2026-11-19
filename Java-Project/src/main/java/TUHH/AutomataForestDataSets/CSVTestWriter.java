@@ -23,7 +23,7 @@ public class CSVTestWriter {
 		}
 	}
 
-	public void initWriteSingleMealy(String filename) {
+	public void initWriteSingleExperiment(String filename) {
 
 		String testFile = "";
 		try {
@@ -50,7 +50,7 @@ public class CSVTestWriter {
 		}
 	}
 
-	public void writeDataSingleMealy(ExperimentResults results) {
+	public void writeDataSingleExperiment(ExperimentResults results) {
 		try {
 			String[] line = {
 					Integer.toString(results.getTestSize()),

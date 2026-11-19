@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import de.learnlib.algorithms.rpni.BlueFringeRPNIDFA;
 import de.learnlib.algorithms.rpni.BlueFringeRPNIMealy;
+import de.learnlib.api.algorithm.PassiveLearningAlgorithm.PassiveDFALearner;
 import de.learnlib.api.algorithm.PassiveLearningAlgorithm.PassiveMealyLearner;
+import net.automatalib.automata.fsa.DFA;
 import net.automatalib.automata.transducers.MealyMachine;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.Word;
@@ -120,6 +123,31 @@ public final class HelperFunctions {
 	}
 
 	/**
+	 * Learns a DFA from input words and their acceptance labels using LearnLib's
+	 * Blue-Fringe RPNI implementation.
+	 *
+	 * @param alphabet input alphabet
+	 * @param inputSample sample words
+	 * @param acceptanceSample whether each corresponding word is accepted
+	 * @return learned DFA
+	 */
+	@SuppressWarnings("unchecked")
+	public static <I> DFA<?, I> computeModelDFABlueFringe(Alphabet<I> alphabet,
+			List<String> inputSample, List<Boolean> acceptanceSample) {
+		if (inputSample.size() != acceptanceSample.size()) {
+			throw new IllegalArgumentException("input and acceptance samples must be the same size");
+		}
+		if (acceptanceSample.contains(null)) {
+			throw new IllegalArgumentException("acceptance labels must not be null");
+		}
+		final PassiveDFALearner<I> learner = new BlueFringeRPNIDFA<>(alphabet);
+		for (int i = 0; i < inputSample.size(); i++) {
+			learner.addSample((Word<I>) Word.fromString(inputSample.get(i)), acceptanceSample.get(i));
+		}
+		return learner.computeModel();
+	}
+
+	/**
 	 * Function to extract some random number in an interval. Due to this work being
 	 * of academic purposes, this method is seeded for reproducibility and is used
 	 * in all methods that need a random number.
@@ -130,8 +158,8 @@ public final class HelperFunctions {
 	 */
 	public static int getRandomNumInRange(int min, int max) {
 
-		if (min >= max) {
-			throw new IllegalArgumentException("max must be greater than min");
+		if (min > max) {
+			throw new IllegalArgumentException("max must not be less than min");
 		}
 		if (seed == null) {
 			seed = (long) 1;
@@ -146,8 +174,8 @@ public final class HelperFunctions {
 			return getRandomNumInRange(min, max);
 		}
 
-		if (min >= max) {
-			throw new IllegalArgumentException("max must be greater than min");
+		if (min > max) {
+			throw new IllegalArgumentException("max must not be less than min");
 		}
 		if (dataseed == null) {
 			dataseed = (long) 1;
@@ -180,6 +208,51 @@ public final class HelperFunctions {
 			}
 		}
 
+		return score;
+	}
+
+	/**
+	 * Compares a DFA with labeled test words.
+	 *
+	 * @return number of words classified correctly
+	 */
+	public static int CompareWithModelWithTestSet(DFA<?, Character> model,
+			List<String> inputTest, List<Boolean> acceptanceTest) {
+		if (inputTest.size() != acceptanceTest.size()) {
+			throw new IllegalArgumentException("input and acceptance test sets must be the same size");
+		}
+		if (acceptanceTest.contains(null)) {
+			throw new IllegalArgumentException("acceptance labels must not be null");
+		}
+		int score = 0;
+		for (int i = 0; i < inputTest.size(); i++) {
+			if (model.accepts(Word.fromString(inputTest.get(i))) == acceptanceTest.get(i)) {
+				score++;
+			}
+		}
+		return score;
+	}
+
+	/**
+	 * Compares the majority-vote predictions of a DFA forest with labeled test
+	 * words.
+	 *
+	 * @return number of words classified correctly
+	 */
+	public static int CompareWithModelWithTestSet(AutomataForestDFAMachine model,
+			List<String> inputTest, List<Boolean> acceptanceTest) {
+		if (inputTest.size() != acceptanceTest.size()) {
+			throw new IllegalArgumentException("input and acceptance test sets must be the same size");
+		}
+		if (acceptanceTest.contains(null)) {
+			throw new IllegalArgumentException("acceptance labels must not be null");
+		}
+		int score = 0;
+		for (int i = 0; i < inputTest.size(); i++) {
+			if (model.accepts(inputTest.get(i)) == acceptanceTest.get(i)) {
+				score++;
+			}
+		}
 		return score;
 	}
 

@@ -3,8 +3,14 @@ package TUHH.AutomataForestDataSets;
 import java.util.List;
 
 public class ExperimentConfig {
+	public enum AutomatonType {
+		DFA,
+		MEALY
+	}
+
     private String name;
     private String example; // coffee or random
+    private AutomatonType automatonType = AutomatonType.MEALY;
 
     private int numStates;
     private int numInputs;
@@ -86,5 +92,13 @@ public class ExperimentConfig {
 
 	public void setExample(String example) {
 		this.example = example;
+	}
+
+	public AutomatonType getAutomatonType() {
+		return automatonType;
+	}
+
+	public void setAutomatonType(AutomatonType automatonType) {
+		this.automatonType = automatonType;
 	}
 }

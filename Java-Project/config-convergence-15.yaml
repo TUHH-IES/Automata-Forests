@@ -1,4 +1,5 @@
 name: "convergence-15"
+automatonType: MEALY
 example: "random"
 numStates: 15
 numInputs: 4

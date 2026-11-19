@@ -1,4 +1,5 @@
 name: "Mealy random 10"
+automatonType: MEALY
 example: "random"
 numStates: 25
 numInputs: 5

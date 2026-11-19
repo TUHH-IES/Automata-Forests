@@ -1,0 +1,24 @@
+name: "dfa convergence-15"
+automatonType: DFA
+example: "random"
+numStates: 15
+numInputs: 4
+numOutputs: 4
+sizeForest:
+  - 100
+bagRatio:
+  - 0.8
+sizeLearn:
+  - 1000
+  - 2000
+  - 3000
+  - 4000
+  - 5000
+  - 6000
+  - 7000
+  - 8000
+  - 9000
+  - 10000
+sizeTest: 1000
+lengthWords: 20
+repetitions: 10

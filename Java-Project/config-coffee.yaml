@@ -1,4 +1,5 @@
 name: "Mealy"
+automatonType: MEALY
 example: "coffee"
 numStates: 5
 numInputs: 4

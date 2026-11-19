@@ -12,7 +12,7 @@ public class Project {
 		ExperimentConfig config = new ExperimentConfig();
 		Yaml yaml = new Yaml();
         try{
-        	InputStream file = new FileInputStream("C:\\Users\\swant\\IES\\Modelllernen\\Automata-Forests\\Java-Project\\config-convergence-15.yaml");
+        	InputStream file = new FileInputStream("C:\\Users\\swant\\IES\\Modelllernen\\Automata-Forests\\Java-Project\\config-random-dfa-10.yaml");
             config = yaml.loadAs(file, ExperimentConfig.class);
             System.out.println(config);
         } catch (Exception e) {
