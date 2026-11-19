@@ -277,6 +277,28 @@ public final class HelperFunctions {
 	}
 
 	/**
+	 * Compares a GRBM team using the requested voting strategy with labeled words.
+	 *
+	 * @return number of words classified correctly
+	 */
+	public static int CompareWithModelWithTestSet(AutomataTeamGRBM model, List<String> inputTest,
+			List<Boolean> acceptanceTest, AutomataTeamGRBM.ClassificationStrategy strategy) {
+		if (inputTest.size() != acceptanceTest.size()) {
+			throw new IllegalArgumentException("input and acceptance test sets must be the same size");
+		}
+		if (acceptanceTest.contains(null)) {
+			throw new IllegalArgumentException("acceptance labels must not be null");
+		}
+		int score = 0;
+		for (int i = 0; i < inputTest.size(); i++) {
+			if (model.accepts(inputTest.get(i), strategy) == acceptanceTest.get(i)) {
+				score++;
+			}
+		}
+		return score;
+	}
+
+	/**
 	 * compares a AutomataForestMealyMachine with a test set to check how many words
 	 * are correctly translated using MV
 	 * 

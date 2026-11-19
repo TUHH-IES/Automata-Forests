@@ -1,5 +1,7 @@
 name: "DFA random 10"
 automatonType: DFA
+grbmTeamSize: 11
+grbmStrategy: FAIR_VOTE
 example: "random"
 numStates: 10
 numInputs: 4

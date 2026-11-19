@@ -67,6 +67,19 @@ public class TestEnvironment {
 				timer.CurrTimer();
 				double timeEDSM = timer.getDurationInSec();
 
+				if (config.getGrbmStrategy() == null) {
+					throw new IllegalArgumentException("grbmStrategy must be configured");
+				}
+				timer.startTimer();
+				AutomataTeamGRBM team = new AutomataTeamGRBM(
+						sigmaIn, trainSet.getInputs(), trainSet.getAcceptanceLabels(), config.getGrbmTeamSize());
+				timer.CurrTimer();
+				double timeGRBM = timer.getDurationInSec();
+				long totalTeamModelSize = 0;
+				for (DFA<?, Character> model : team.getTeam()) {
+					totalTeamModelSize += model.size();
+				}
+
 				timer.startTimer();
 				AutomataForestDFAMachine forest = new AutomataForestDFAMachine(
 						sigmaIn, trainSet.getInputs(), trainSet.getAcceptanceLabels(), bagRatio, numBags);
@@ -86,6 +99,12 @@ public class TestEnvironment {
 				singleResults.setTimeEDSM(timeEDSM);
 				singleResults.setCorrectWordsEDSM(HelperFunctions.CompareWithModelWithTestSet(
 						singleDFAEDSM, testSet.getInputs(), testSet.getAcceptanceLabels()));
+				singleResults.setGrbmTeamSize(team.size());
+				singleResults.setGrbmStrategy(config.getGrbmStrategy().name());
+				singleResults.setTotalModelSizeGRBM(totalTeamModelSize);
+				singleResults.setTimeGRBM(timeGRBM);
+				singleResults.setCorrectWordsGRBM(HelperFunctions.CompareWithModelWithTestSet(
+						team, testSet.getInputs(), testSet.getAcceptanceLabels(), config.getGrbmStrategy()));
 				writer.writeDataSingleExperiment(singleResults);
 				ExperimentResults forestResults = evaluateDFA(selectedDFA, sigmaIn, trainSet,
 						testSet, "PM", 0.0, timeForest);

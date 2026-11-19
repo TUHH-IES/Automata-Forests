@@ -19,6 +19,11 @@ public class ExperimentResults {
 	private Integer modelSizeEDSM;
 	private Double timeEDSM;
 	private Integer correctWordsEDSM;
+	private Integer grbmTeamSize;
+	private String grbmStrategy;
+	private Long totalModelSizeGRBM;
+	private Double timeGRBM;
+	private Integer correctWordsGRBM;
 	
 	public int getTestSize() {
 		return testSize;
@@ -133,6 +138,46 @@ public class ExperimentResults {
 
 	public void setCorrectWordsEDSM(Integer correctWordsEDSM) {
 		this.correctWordsEDSM = correctWordsEDSM;
+	}
+
+	public Integer getGrbmTeamSize() {
+		return grbmTeamSize;
+	}
+
+	public void setGrbmTeamSize(Integer grbmTeamSize) {
+		this.grbmTeamSize = grbmTeamSize;
+	}
+
+	public String getGrbmStrategy() {
+		return grbmStrategy;
+	}
+
+	public void setGrbmStrategy(String grbmStrategy) {
+		this.grbmStrategy = grbmStrategy;
+	}
+
+	public Long getTotalModelSizeGRBM() {
+		return totalModelSizeGRBM;
+	}
+
+	public void setTotalModelSizeGRBM(Long totalModelSizeGRBM) {
+		this.totalModelSizeGRBM = totalModelSizeGRBM;
+	}
+
+	public Double getTimeGRBM() {
+		return timeGRBM;
+	}
+
+	public void setTimeGRBM(Double timeGRBM) {
+		this.timeGRBM = timeGRBM;
+	}
+
+	public Integer getCorrectWordsGRBM() {
+		return correctWordsGRBM;
+	}
+
+	public void setCorrectWordsGRBM(Integer correctWordsGRBM) {
+		this.correctWordsGRBM = correctWordsGRBM;
 	}
 	
 	@Override

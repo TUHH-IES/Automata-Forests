@@ -41,10 +41,11 @@ public class CSVTestWriter {
 			// create CSVWriter object filewriter object as parameter
 			writer = new CSVWriter(outputfile);
 
-			// Header includes DFA-only EDSM metrics, left blank for Mealy experiments.
+			// DFA-only EDSM and GRBM metrics are left blank for Mealy experiments.
 			String[] header = { "testSize", "bagRatio", "forestSize", "trainSize", "SigmaIn", "SigmaOut", "TargetSize",
 					"WordLength", "ModelSizeRPNI", "ModelSizeEDSM", "ModelSizePM", "TimeRPNI", "TimeEDSM",
-					"TimeForest", "RPNI", "EDSM", "FPM", "FMV"};
+					"TimeForest", "RPNI", "EDSM", "FPM", "FMV", "GRBMTeamSize", "GRBMStrategy",
+					"TotalModelSizeGRBM", "TimeGRBM", "GRBM"};
 			writer.writeNext(header);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,7 +72,12 @@ public class CSVTestWriter {
 					Integer.toString(results.getCorrectWordsRPNI()),
 					results.getCorrectWordsEDSM() == null ? "" : results.getCorrectWordsEDSM().toString(),
 					Integer.toString(results.getCorrectWordsPM()),
-					Integer.toString(results.getCorrectWordsMV())
+					Integer.toString(results.getCorrectWordsMV()),
+					results.getGrbmTeamSize() == null ? "" : results.getGrbmTeamSize().toString(),
+					results.getGrbmStrategy() == null ? "" : results.getGrbmStrategy(),
+					results.getTotalModelSizeGRBM() == null ? "" : results.getTotalModelSizeGRBM().toString(),
+					results.getTimeGRBM() == null ? "" : results.getTimeGRBM().toString(),
+					results.getCorrectWordsGRBM() == null ? "" : results.getCorrectWordsGRBM().toString()
 			};
 			writer.writeNext(line);
 		} catch (Exception e) {

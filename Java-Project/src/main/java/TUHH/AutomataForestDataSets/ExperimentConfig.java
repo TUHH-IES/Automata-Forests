@@ -18,6 +18,9 @@ public class ExperimentConfig {
     private List<Integer> sizeForest;
     private List<Double> bagRatio;
     private List<Integer> sizeLearn;
+	private int grbmTeamSize = 11;
+	private AutomataTeamGRBM.ClassificationStrategy grbmStrategy =
+			AutomataTeamGRBM.ClassificationStrategy.FAIR_VOTE;
     private int sizeTest;
     private int lengthWords;
     private int repetitions;
@@ -57,6 +60,18 @@ public class ExperimentConfig {
 	}
 	public void setSizeLearn(List<Integer> sizeLearn) {
 		this.sizeLearn = sizeLearn;
+	}
+	public int getGrbmTeamSize() {
+		return grbmTeamSize;
+	}
+	public void setGrbmTeamSize(int grbmTeamSize) {
+		this.grbmTeamSize = grbmTeamSize;
+	}
+	public AutomataTeamGRBM.ClassificationStrategy getGrbmStrategy() {
+		return grbmStrategy;
+	}
+	public void setGrbmStrategy(AutomataTeamGRBM.ClassificationStrategy grbmStrategy) {
+		this.grbmStrategy = grbmStrategy;
 	}
 	public int getSizeTest() {
 		return sizeTest;
