@@ -4,7 +4,7 @@ import pandas as pd
 import seaborn as sns
 
 # 1. Load dataset & establish indices
-df = pd.read_csv("convergence-15_all.csv")
+df = pd.read_csv("dfa convergence-15_all.csv")
 df["line_idx"] = df.index % 102
 
 # Separate instances
@@ -17,7 +17,7 @@ forestMV = df[df["line_idx"] == 101].copy()
 single_automata["perf"] = single_automata["RPNI"]
 single_rpni["perf"] = single_rpni["RPNI"]
 forestPM["perf"] = forestPM["FPM"]
-forestMV["perf"] = forestPM["FMV"]
+forestMV["perf"] = forestMV["FMV"]
 
 # Calculate 2D Euclidean Distance to Target (States=15, Perf=1000)
 for d in [single_automata, single_rpni, forestPM]:
@@ -105,7 +105,7 @@ sc_rpni = ax1.scatter(
 )
 
 sc_forest = ax1.scatter(
-    forestPM.iloc[::10]["ModelSizeRPNI"],
+    forestPM.iloc[::10]["ModelSizePM"],
     forestPM.iloc[::10]["FPM"],
     c=forestPM.iloc[::10]["trainSize"],
     cmap="viridis",
@@ -122,7 +122,7 @@ for idx, row in single_rpni.iloc[::10].iterrows():
     ts = row["trainSize"]
     f_row = forestPM[forestPM["trainSize"] == ts]
     if not f_row.empty:
-        f_x, f_y = f_row["ModelSizeRPNI"].values[0], f_row["FPM"].values[0]
+        f_x, f_y = f_row["ModelSizePM"].values[0], f_row["FPM"].values[0]
         # Draw thin dotted line connecting matching RPNI and Forest entries
         ax1.plot(
             [row["ModelSizeRPNI"], f_x],

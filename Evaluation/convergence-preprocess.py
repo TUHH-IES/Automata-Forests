@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 # 1. Load dataset & establish indices
-df = pd.read_csv("convergence-15_all.csv")
+df = pd.read_csv("dfa convergence-15_all.csv")
 df["line_idx"] = df.index % 102
 
 # Separate instances
@@ -46,7 +46,7 @@ forestPM_sub = forestPM.iloc[::10].copy()
 # Paired connectors dataset: Merges corresponding RPNI and Forest entries for dashed lines
 paired_connectors = pd.merge(
     single_rpni_sub[["trainSize", "ModelSizeRPNI", "RPNI"]],
-    forestPM_sub[["trainSize", "ModelSizeRPNI", "FPM"]],
+    forestPM_sub[["trainSize", "ModelSizePM", "FPM"]],
     on="trainSize",
     suffixes=("_rpni", "_forest"),
 )
@@ -55,21 +55,21 @@ paired_connectors = pd.merge(
 
 single_automata[
     ["ModelSizeRPNI", "RPNI", "trainSize"]
-].to_csv("pgf_single_automata_pool.csv", index=False)
+].to_csv("dfa-pgf_single_automata_pool.csv", index=False)
 best_single_perf[
     ["trainSize", "ModelSizeRPNI", "RPNI", "perf"]
-].to_csv("pgf_best_single.csv", index=False)
+].to_csv("dfa-pgf_best_single.csv", index=False)
 single_rpni_sub[
     ["trainSize", "ModelSizeRPNI", "RPNI"]
-].to_csv("pgf_rpni_subsampled.csv", index=False)
+].to_csv("dfa-pgf_rpni_subsampled.csv", index=False)
 forestPM_sub[
-    ["trainSize", "ModelSizeRPNI", "FPM"]
-].to_csv("pgf_forest_subsampled.csv", index=False)
+    ["trainSize", "ModelSizePM", "FPM"]
+].to_csv("dfa-pgf_forest_subsampled.csv", index=False)
 
-paired_connectors.to_csv("pgf_paired_connectors.csv", index=False)
+paired_connectors.to_csv("dfa-pgf_paired_connectors.csv", index=False)
 
-rpni_perf.to_csv("pgf_rpni_perf.csv", index=False)
-forestPM_perf.to_csv("pgf_forest_pm_perf.csv", index=False)
-forestMV_perf.to_csv("pgf_forest_mv_perf.csv", index=False)
+rpni_perf.to_csv("dfa-pgf_rpni_perf.csv", index=False)
+forestPM_perf.to_csv("dfa-pgf_forest_pm_perf.csv", index=False)
+forestMV_perf.to_csv("dfa-pgf_forest_mv_perf.csv", index=False)
 
 print("CSV files successfully generated for PGFPlots.")
